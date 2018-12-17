@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据可视化demo</title>
+    <link href="{{ static_url('styles/common.css') }}" rel="stylesheet">
+
+</head>
+<body>
+<!--顶部-->
+<header class="header left">
+    <div class="left nav">
+        <ul>
+            <li class="nav_active"><i class="nav_1"></i><a href="index.html">总览</a> </li>
+            <li><i class="nav_2"></i><a href="quota.html">展示一</a> </li>
+            <li><i class="nav_3"></i><a href="trend.html">展示二</a> </li>
+            <li><i class="nav_4"></i><a href="chronic.html">展示三</a> </li>
+            </ul>
+    </div>
+    <div class="header_center left" style="position:relative">
+        
+        <h2><strong>气体安全大数据追溯平台</strong></h2>
+        <input type="hidden" id="map_data" value="{{map_data}}">
+				<input type="hidden" id="alarm_data" value="{{alarm_data}}">
+				<input type="hidden" id="useful_data" value="{{useful_data}}">
+				<input type="hidden" id="alarm_solution" value="{{alarm_solution}}">
+				<input type="hidden" id="brand_alarm" value="{{brand_alarm}}">
+    </div>
+    <div class="right nav text_right">
+        <ul>
+            <li style="width: 10%"><i style="width: 10%" class="nav_1"></i><a href="index.html">登录</a> </li>
+            <li style="width: 10%"><i style="width: 10%" class="nav_2"></i><a href="quota.html">帮助</a> </li>
+            <li style="width: 10%"><i style="width: 10%" class="nav_3"></i><a href="trend.html">关于</a> </li>
+
+        </ul>
+    </div>
+
+</header>
+<!--内容部分-->
+<div class="con left">
+    <!--数据总概-->
+    <div class="con_div">
+        <div class="con_div_text left">
+            <div class="con_div_text01 left">
+                <img src="{{ static_url('images/info_1.png') }}" class="left text01_img"/>
+                <div class="left text01_div">
+                    <p>探测器安装数量数</p>
+                    <p>{{device_count["all"]}}</p>
+                </div>
+            </div>
+
+            <div class="con_div_text01 right">
+                <img src="{{ static_url('images/info_2.png') }}" class="left text01_img"/>
+                <div class="left text01_div">
+                    <p>正常运行数</p>
+                    <p>{{device_count["00"]}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="con_div_text left">
+            <div class="con_div_text01 left">
+                <img src="{{ static_url('images/warning.png') }}" class="left text01_img"/>
+                <div class="left text01_div">
+                    <p>气体泄漏报警数</p>
+                    <p class="sky">{{device_count["01"]}}</p>
+                </div>
+            </div>
+            <div class="con_div_text01 left">
+                <img src="{{ static_url('images/失效设备.png') }}" class="left text01_img"/>
+                <div class="left text01_div">
+                    <p>失效设备数</p>
+                    <p class="sky">{{device_count["02"]}}</p>
+                </div>
+            </div>
+            <div class="con_div_text01 right">
+                <img src="{{ static_url('images/关机off.png') }}" class="left text01_img"/>
+                <div class="left text01_div">
+                    <p>关机设备数</p>
+                    <p class="sky">{{device_count["04"]}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="con_div_text left">
+
+            <div class="con_div_text01 left">
+                <img src="{{ static_url('images/异常设备.png') }}" class="left text01_img"/>
+                <div class="left text01_div">
+                    <p>故障设备数</p>
+                    <p class="org">{{device_count["05"]}}</p>
+                </div>
+            </div>
+					<div class="con_div_text01 left">
+                <img src="{{ static_url('images/计重设备.png') }}" class="left text01_img"/>
+                <div class="left text01_div">
+                    <p>计量超期数</p>
+                    <p class="sky">0</p>
+                </div>
+            </div>
+            <div class="con_div_text01 right">
+                <img src="{{ static_url('images/close.png') }}" class="left text01_img"/>
+                <div class="left text01_div">
+                    <p>设备关机数量</p>
+                    <p class="org">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--统计分析图-->
+    <div class="div_any">
+        <div class="left div_any01">
+            <div class="div_any_child">
+                <div class="div_any_title"><img src="{{ static_url('images/title_1.png') }}">年度气体泄漏报警统计</div>
+                <p id="pieChart1" class="p_chart"></p>
+            </div>
+            <div class="div_any_child">
+                <div class="div_any_title"><img src="{{ static_url('images/title_2.png') }}">年度品牌探测器报警分布</div>
+                <p id="pieChart2" class="p2_chart"></p>
+            </div>
+        </div>
+
+        <div class="div_any02 left ">
+            <div class="div_any_child div_height">
+                <div class="div_any_title any_title_width"><img src="{{ static_url('images/title_0.png') }}">全国地图报警 </div>
+                <div style="width:97.5%;height:95%;display: inline-block;padding-left: 1.25%;padding-top:2.2%">
+									<div id="mapChart" style="width:100%;height:100%;display: inline-block;padding-left: 1.25%;padding-top:2.2%;padding-top:1%">
+
+									</div>
+								</div>
+            </div>
+        </div>
+
+        <div class="right div_any01">
+            <div class="div_any_child">
+                <div class="div_any_title"><img src="{{ static_url('images/title_3.png') }}">年度气体泄漏报警与报警处置</div>
+                <p id="pieChart3" class="p_chart"></p>
+            </div>
+            <div class="div_any_child">
+                <div class="div_any_title"><img src="{{ static_url('images/title_4.png') }}">气体泄漏安全监控单位与人员
+</div>
+                <p id="pieChart4" class="p2_chart"></p>
+            </div>
+        </div>
+    </div>
+
+    <!--<div id="el-dialog" class="">-->
+        <!--<div class="xc_layer"></div>-->
+        <!--<div class="popBox" id="printView">-->
+            <!--<div class="ttBox"><span class="tt" id="reportTitle">第一医院</span><img src="../static/images/close.png" style="width: 30px;float: right;cursor: pointer;" title="关闭弹窗" class="close"/></div>-->
+            <!--<div class="txtBox" id="el-dialog_body">-->
+             <!--<div style="height:100%;width: 98%;margin-left: 1%;">-->
+               <!--<div class="left div_any01" style="width: 64%;">-->
+                   <!--<div class="div_any_child">-->
+                       <!--<div class="div_any_title"><div type="text" class="demo-input" id="date1" style="display: inline-block;cursor: pointer;margin-right: 16px;"></div><img src="../static/images/title_4.png">门诊住院人次</div>-->
+                       <!--<p id="lineChart3" class="p_chart"></p>-->
+                   <!--</div>-->
+                   <!--<div class="div_any_child">-->
+                       <!--<div class="div_any_title"><div type="text" class="demo-input" id="date2" style="display: inline-block;cursor: pointer;margin-right: 16px;"></div><img src="../static/images/title_7.png">医疗费用</div>-->
+                       <!--<p id="lineChart4" class="p_chart"></p>-->
+                   <!--</div>-->
+               <!--</div>-->
+               <!--<div class="left div_any01"  style="width: 32%;">-->
+                   <!--<div class="div_any_child">-->
+                       <!--<div class="div_any_title"><div type="text" class="demo-input" id="date3" style="display: inline-block;cursor: pointer;margin-right: 16px;"></div><img src="../static/images/title_18.png">病人年龄段分布</div>-->
+                       <!--<p id="pieChart2" class="p_chart"></p>-->
+                   <!--</div>-->
+                   <!--<div class="div_any_child">-->
+                       <!--<div class="div_any_title"><div type="text" class="demo-input" id="date4" style="display: inline-block;cursor: pointer;margin-right: 16px;"></div><img src="../static/images/title_20.png">医疗费用组成</div>-->
+                       <!--<p id="pieChart3" class="p_chart"></p>-->
+                   <!--</div>-->
+               <!--</div>-->
+
+             <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+</div>
+<script src="{{ static_url('scripts/Plugin/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ static_url('scripts/Plugin/echarts.min.js') }}"></script>
+    <!--<script src="../static/scripts/Plugin/bmap.min.js"></script>-->
+    <!--<script src="http://api.map.baidu.com/api?v=2.0&ak=LelFSt6BfykGf8m3PB5zr8LaXAG2cMg6"></script>-->
+    <script src="{{ static_url('scripts/common.js') }}"></script>
+    <script src="{{ static_url('scripts/charts1.js') }}"></script>
+		<script src="{{ static_url('scripts/charts2.js') }}"></script>
+		<script src="{{ static_url('scripts/charts3.js') }}"></script>
+		<script src="{{ static_url('scripts/charts4.js') }}"></script>
+    <script src="{{ static_url('scripts/Plugin/laydate/laydate.js') }}"></script>
+
+
+		<script src="http://webapi.amap.com/maps?v=1.4.6&key=d924f737fb672e60e54bb3bede31c299"></script>
+		<script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="../static/scripts/gaode.js"></script>
+</body>
+</html>
