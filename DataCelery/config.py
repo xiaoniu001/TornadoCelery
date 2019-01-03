@@ -1,6 +1,14 @@
 from kombu import Exchange, Queue
 from celery.schedules import crontab
 
+mysql_db = "wbcloud"
+mysql_port = 3306
+mysql_user = "root"
+mysql_pwd = "85540001"
+mysql_host = "121.41.27.124"
+charset = "utf8mb4"
+
+
 CELERY_RESULT_BACKEND = 'amqp://guest:guest@localhost:5672'
 BROKER_URL = 'amqp://guest:guest@localhost:5672'
 

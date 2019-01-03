@@ -1,118 +1,228 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en" class="no-outlines">
 <head>
+
     <meta charset="UTF-8">
-    <title>数据可视化demo</title>
-    <link href="../styles/common.css" rel="stylesheet">
-    <script src="../scripts/Plugin/jquery-3.3.1.min.js"></script>
-    <script src="../scripts/Plugin/echarts.min.js"></script>
-    <script src="../scripts/common.js"></script>
-    <script src="../scripts/trend.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- ==== Document Title ==== -->
+    <title>燃气云操作平台</title>
+
+    <!-- ==== Document Meta ==== -->
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- ==== Favicon ==== -->
+    <link rel="icon" href="favicon.png" type="image/png">
+
+    <!-- ==== Google Font ==== -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700%7CMontserrat:400,500">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ static_url('admin/css/bootstrap.min.css') }}">
+    <!--<link rel="stylesheet" href="{{ static_url('admin/css/fontawesome-all.min.css') }}">-->
+    <link rel="stylesheet" href="{{ static_url('admin/css/jquery-ui.min.css') }}">
+		<link rel="stylesheet" href="{{ static_url('trend/css/liMarquee.css') }}">
+    <!--<link rel="stylesheet" href="{{ static_url('admin/css/morris.min.css') }}">-->
+		<link href="{{ static_url('layui/css/layui.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ static_url('admin/css/style.css') }}">
+
+    <!-- Page Level Stylesheets -->
+		<style>
+			.navbar-fixed {
+				background-color: #38afad;
+			}
+			.main--container {
+				padding-top:40px;
+			}
+			header {
+				height:50px;
+			}
+		</style>
 </head>
-<body>
-<!--顶部-->
-<header class="header left">
-  <div class="left nav">
-      <ul>
-          <li><i class="nav_1"></i><a href="index.html">采集概况</a> </li>
-          <li><i class="nav_2"></i><a href="quota.html">指标分析</a> </li>
-          <li><i class="nav_3"></i><a href="trend.html">趋势分析</a> </li>
-          <li class="nav_active"><i class="nav_4"></i><a href="chronic.html">慢病病人列表</a> </li>
-          </ul>
-  </div>
-    <div class="header_center left" style="position:relative">
-  
-        <h2><strong>大数据展示</strong></h2>
+<body class="sidebar-mini">
 
-    </div>
-    <div class="right nav text_right">
-        <ul>
+    <!-- Wrapper Start -->
+    <div class="wrapper">
 
-        </ul>
-    </div>
 
-</header>
-<!--内容部分-->
-<div class="con left" style="width:50%;">
-    <!--统计分析图-->
-    <div class="div_any">
-        <div class="left div_any01" style="width:100%;">
-            <div class="div_any_child" style="width:98%;position:relative;height: 420px;">
-                <div class="div_any_title"><img src="../images/title_13.png">主要传染病</div>
-                <div id="histogramChart1"  style="width: 45%;display: inline-block;height: 400px;margin-top: 15px;"></div>
-                <div id="lineChart1"  style="width: 52%;height: 66%;display: inline-block;"></div>
-                <div style="width: 50%;height: 20%;display: inline-block;color:red;position: absolute;right: 2%;top: 8%;">
-                  <div style="display: inline-block;width:33%;text-align:center;">
-                    <div style="color:#fff;font-size: 18px;line-height: 32px;">病例报告数</div>
-                    <div style="color:#87cefa;font-size: 30px;line-height: 42px;">2354</div>
-                  </div><div style="display: inline-block;width:33%;text-align:center;">
-                    <div style="color:#fff;font-size: 18px;line-height: 32px;">死亡数</div>
-                    <div style="color:red;font-size: 30px;line-height: 42px;">26</div>
-                  </div><div style="display: inline-block;width:33%;text-align:center;">
-                    <div style="color:#fff;font-size: 18px;line-height: 32px;">同比发病数趋势</div>
-                    <div style="color:#ff7f50;font-size: 30px;line-height: 42px;">5.36%</div>
-                  </div>
+					<ul class="layui-nav layui-bg-green navbar-fixed">
+						<li class="layui-nav-item">
+							<a href="/">首页</a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="">实时监控<span class="layui-badge" id="real_time"></span></a>
+						</li>
+						<li class="layui-nav-item">
+							<a href="">安全追溯<span class="layui-badge-dot"></span></a>
+						</li>
+						<li class="layui-nav-item layui-layout-right">
+							<a href="javascript:;">
+								<img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+								{{username}}
+							</a>
+							<dl class="layui-nav-child">
+								<dd><a href="">基本资料</a></dd>
+								<dd><a href="">安全设置</a></dd>
+							</dl>
+						</li>
+					</ul>
+
+
+        <!-- Main Container Start -->
+        <main class="main--container">
+						<input type="hidden" id="map_data" value="{{map_data}}">
+						<input type="hidden" id="area_alarm_data" value="{{area_alarm_data}}">
+						<input type="hidden" id="azdwno" value="{{azdwno}}">
+						<input type="hidden" id="device_status" value="{{device_status}}">
+						<input type="hidden" id="all_alarm_data" value="{{all_alarm_data}}">
+            <!-- Main Content Start -->
+            <section class="main--content">
+                <div class="row gutter-20">
+										<div class="col-xl-3 col-md-3">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">最近一小时报警信息</h3>
+
+                            </div>
+
+                            <div class="panel-chart">
+                                <div class="alarm chart--body area--chart style--1">
+																	<ul id="alarm_data">
+
+																	</ul>
+																</div>
+                                <!-- Morris Area Chart 01 End -->
+
+
+                            </div>
+                        </div>
+
+												<div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">设备状态情况统计</h3>
+
+                            </div>
+
+                            <div class="panel-chart">
+                                <div id="deviceStatus" class="hart--body area--chart" style="height:400px">
+
+																</div>
+                                <!-- Morris Area Chart 01 End -->
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-md-6">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">全国地区报警单位概览</h3>
+
+                                <div class="dropdown">
+                                    <button type="button" class="btn-link dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </button>
+
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fa fa-sync"></i>Update Data</a></li>
+                                        <li><a href="#"><i class="fa fa-cogs"></i>Settings</a></li>
+                                        <li><a href="#"><i class="fa fa-times"></i>Remove Panel</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="panel-chart">
+                                <!-- Morris Area Chart 01 Start -->
+                                <div id="tencentMap" class="chart--body area--chart" style="height:800px"></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-3">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">报警单位</h3>
+                            </div>
+                            <div class="panel-chart">
+                                <!-- Morris Area Chart 02 Start -->
+                                <div class="chart--body area--chart">
+																		<table id="area_alarm" class="layui-hide" lay-filter="area_alarm"></table>
+																</div>
+                                <!-- Morris Area Chart 02 End -->
+                            </div>
+                        </div>
+												<div class="panel">
+															<div class="panel-heading">
+																	<h3 class="panel-title">单位报警数据</h3>
+															</div>
+
+															<div class="panel-chart">
+																	<!-- Morris Area Chart 02 Start -->
+																	<div class="chart--body area--chart">
+																		<table id="detail_area_alarm" lay-filter="detail_area_alarm"></table>
+																	</div>
+																	<!-- Morris Area Chart 02 End -->
+
+
+															</div>
+													</div>
+												<div class="layer_notice" style="display:none">
+														<div class="panel-chart">
+																<div class="chart--body area--chart">
+																		<table id="all_area_alarm" class="layui-hide" lay-filter="all_area_alarm"></table>
+																</div>
+														</div>
+												</div>
+                    </div>
+
                 </div>
-            </div>
-        </div>
-        <div class="left div_any01" style="width:48%;">
-          <div class="div_any_child" style="height: 420px;">
-              <div class="div_any_title"><img src="../images/title_14.png">主要症状</div>
-              <p id="histogramChart2" class="p_chart" style="height: 400px;"></p>
+            </section>
 
-          </div>
-        </div>
-          <div class="left div_table_box" style="width: 48%;">
-              <div class="div_any_child" style="height: 420px;">
-                  <div class="div_any_title"><img src="../images/title_16.png">预警信息</div>
-                  <div class="table_p">
-                      <table>
-                          <thead><tr>
-                              <th>序号</th>
-                              <th>内容</th>
-                              <th>发布时间</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr><td>1</td><td>9月21日感染性腹泻发病：123人次</td><td>2018-11-05</td></tr>
-                          <tr><td>2</td><td>9月20日流行性感冒：57人次</td><td>2018-11-03</td></tr>
-                          <tr><td>3</td><td>9月19日:手足口病发病同比增长220%</td><td>2018-11-01</td></tr>
-                          <tr><td>4</td><td>9月18日登革热死亡:2人</td><td>2018-10-29</td></tr>
-                          <tr><td>5</td><td>9月17日流行性感冒：157人次</td><td>2018-10-27</td></tr>
-                          <tr><td>6</td><td>9月15日全区传染病发病人数较低</td><td>2018-10-25</td></tr>
-                          <tr><td>7</td><td>9月14日流行性感冒：157人次</td><td>2018-10-23</td></tr>
-                          <tr><td>8</td><td>9月13日全区传染病发病人数较低</td><td>2018-10-21</td></tr>
-                          <tr><td>9</td><td>9月12日流行性感冒：157人次</td><td>2018-10-20</td></tr>
-                          </tbody>
-                      </table>
-                  </div>
-              </div>
-          </div>
-      </div>
+        </main>
+        <!-- Main Container End -->
     </div>
-</div>
-<div class="con right" style="width:50%;">
-  <div class="div_any">
-      <div class="left div_any01" style="width:100%;">
-          <div class="div_any_child" style="width:98%;position:relative;height: 420px;">
-              <div class="div_any_title"><img src="../images/title_17.png">主要疾病排行</div>
-              <div id="histogramChart3"  style="width: 45%;display: inline-block;height: 400px;margin-top: 15px;"></div>
-              <div id="lineChart2"  style="width: 52%;height: 90%;display: inline-block;"></div>
-          </div>
-      </div>
-      <div class="left div_any01" style="width:48%;">
-        <div class="div_any_child" style="height: 420px;">
-            <div class="div_any_title"><img src="../images/title_18.png">年龄分布</div>
-            <p id="pieChart1" class="p_chart" style="height: 400px;"></p>
-        </div>
-      </div>
-      <div class="right div_any01" style="width:48%;">
-          <div class="div_any_child" style="height: 420px;">
-              <div class="div_any_title"><img src="../images/title_19.png">性别分布</div>
-              <p id="pieChart2" class="p_chart" style="height: 400px;"></p>
-          </div>
-      </div>
-  </div>
-</div>
+    <!-- Wrapper End -->
+
+    <!-- Scripts -->
+
+		<script src="{{ static_url('admin/js/jquery.min.js') }}"></script>
+		<script src="{{ static_url('trend/js/jquery.liMarquee.js') }}"></script>
+		<script src="{{ static_url('layui/layui.js') }}"></script>
+		<script src="{{ static_url('trend/pagetable.js') }}"></script>
+		<script src="{{ static_url('scripts/Plugin/echarts.min.js') }}"></script>
+		<script src="{{ static_url('trend/pie.js') }}"></script>
+		<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=WAYBZ-65CHO-5WQWS-SUNSR-ETEHT-XTBK2"></script>
+		<script src="{{ static_url('trend/tencentmap.js') }}"></script>
+		<script src="{{ static_url('trend/trend.js') }}"></script>
+		<script type="text/html" id="sexTpl">
+			{% raw "{{#  if(d.status == '00'){ }}" %}
+				<span style="color: black;">正常</span>
+			{% raw "{{#  } else if(d.status == '01') { }}" %}
+				<span style="color: red;">报警</span>
+			{% raw "{{#  } else if(d.status == '02') { }}" %}
+				<span style="color: red;">失效</span>
+			{% raw "{{#  } else if(d.status == '03') { }}" %}
+				<span style="color: blue;">开机</span>
+			{% raw "{{#  } else if(d.status == '04') { }}" %}
+				<span style="color: grey;">关机</span>
+			{% raw "{{#  } else if(d.status == '05') { }}" %}
+				<span style="color: orange;">故障</span>
+			{% raw "{{#  }  }}" %}
+		</script>
+
+
+    <!--<script src="{{ static_url('admin/js/jquery-ui.min.js') }}"></script>-->
+    <!--<script src="{{ static_url('admin/js/raphael.min.js') }}"></script>-->
+    <!--<script src="{{ static_url('admin/js/morris.min.js') }}"></script>-->
+    <!--<script src="{{ static_url('admin/js/main.js') }}"></script>-->
+
 </body>
+
+
 </html>

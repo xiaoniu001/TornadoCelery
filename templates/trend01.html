@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据可视化demo</title>
+    <link href="{{ static_url('styles/common.css') }}" rel="stylesheet">
+		<link href="{{ static_url('layui/css/layui.css') }}" rel="stylesheet">
+		<style>
+			.layui-table {
+					width: 100%;
+					background-color: #081a34;
+					color: #efe3e3;
+			}
+			.layui-table-tips-main {
+				background-color: #081a34;
+				color: #efe3e3;
+
+			}
+
+		</style>
+</head>
+<body onload="init()">
+<!--顶部-->
+<header class="header left">
+  <div class="left nav">
+      <ul>
+				<li class="nav_active"><i class="nav_1"></i><a href="index.html">燃气泄漏</a> </li>
+				<li><i class="nav_2"></i><a href="quota.html">智能调压器</a> </li>
+				<li><i class="nav_3"></i><a href="trend.html">居民用气</a> </li>
+				<li><i class="nav_4"></i><a href="chronic.html">展示二</a> </li>
+			</ul>
+  </div>
+		<input type="hidden" id="map_data" value="{{map_data}}">
+		<input type="hidden" id="area_alarm_data" value="{{area_alarm_data}}">
+    <div class="right nav text_right">
+        <ul>
+            <li style="width: 10%"><i style="width: 10%" class="nav_1"></i><a id="login">登录</a> </li>
+            <li style="width: 10%"><i style="width: 10%" class="nav_2"></i><a href="quota.html">帮助</a> </li>
+            <li style="width: 10%"><i style="width: 10%" class="nav_3"></i><a href="trend.html">关于</a> </li>
+        </ul>
+    </div>
+
+</header>
+<!--内容部分-->
+<div class="con left" style="width:70%;">
+    <!--统计分析图-->
+    <div class="div_any">
+        <div class="left div_any01" style="width:100%;">
+            <div class="div_any_child" style="width:98%;position:relative;height: 820px;">
+                <div class="div_any_title"><img src="{{ static_url('images/title_13.png') }}">主要传染病</div>
+                <div id="tencentMap" style="width: 98%;display: inline-block;height: 800px;margin: 15px;"></div>
+
+                <!--<div style="width: 50%;height: 20%;display: inline-block;color:red;position: absolute;right: 2%;top: 8%;">-->
+                  <!--<div style="display: inline-block;width:33%;text-align:center;">-->
+                    <!--<div style="color:#fff;font-size: 18px;line-height: 32px;">病例报告数</div>-->
+                    <!--<div style="color:#87cefa;font-size: 30px;line-height: 42px;">2354</div>-->
+                  <!--</div><div style="display: inline-block;width:33%;text-align:center;">-->
+                    <!--<div style="color:#fff;font-size: 18px;line-height: 32px;">死亡数</div>-->
+                    <!--<div style="color:red;font-size: 30px;line-height: 42px;">26</div>-->
+                  <!--</div><div style="display: inline-block;width:33%;text-align:center;">-->
+                    <!--<div style="color:#fff;font-size: 18px;line-height: 32px;">同比发病数趋势</div>-->
+                    <!--<div style="color:#ff7f50;font-size: 30px;line-height: 42px;">5.36%</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="con right" style="width:30%;">
+  <div class="div_any">
+      <div class="left div_any01" style="width:100%;">
+          <div class="div_any_child" style="width:98%;position:relative;height: 400px">
+              <div class="div_any_title"><img src="{{ static_url('images/title_17.png') }}">主要疾病排行</div>
+              <div style="width:95%;height: 90%;display: inline-block;padding-top:15px;padding-left:15px;">
+								<table id="area_alarm" lay-filter="area_alarm"></table>
+							</div>
+          </div>
+      </div>
+      <div class="left div_any01" style="width:100%;">
+        <div class="div_any_child" style="width:98%;position:relative;height: 400px;">
+              <div class="div_any_title"><img src="{{ static_url('images/title_17.png') }}">主要疾病排行</div>
+               <div style="width:95%;height: 90%;display: inline-block;padding-top:15px;padding-left:15px;">
+								<table id="detail_area_alarm" lay-filter="detail_area_alarm"></table>
+							</div>
+          </div>
+      </div>
+
+  </div>
+</div>
+    <script src="{{ static_url('scripts/Plugin/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ static_url('scripts/Plugin/echarts.min.js') }}"></script>
+		<script src="{{ static_url('layui/layui.js') }}"></script>
+    <script src="{{ static_url('scripts/common.js') }}"></script>
+		<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=WAYBZ-65CHO-5WQWS-SUNSR-ETEHT-XTBK2"></script>
+		<script src="{{ static_url('trend/websocket.js') }}"></script>
+		<script src="{{ static_url('trend/tencentmap.js') }}"></script>
+		<script src="{{ static_url('trend/pagetable.js') }}"></script>
+
+</body>
+</html>

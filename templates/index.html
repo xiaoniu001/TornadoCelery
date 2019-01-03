@@ -11,15 +11,17 @@
 <header class="header left">
     <div class="left nav">
         <ul>
-            <li class="nav_active"><i class="nav_1"></i><a href="index.html">总览</a> </li>
-            <li><i class="nav_2"></i><a href="quota.html">展示一</a> </li>
-            <li><i class="nav_3"></i><a href="trend.html">展示二</a> </li>
-            <li><i class="nav_4"></i><a href="chronic.html">展示三</a> </li>
+            <li class="nav_active"><i class="nav_1"></i><a href="index.html">燃气泄漏</a> </li>
+            <li><i class="nav_2"></i><a href="quota.html">智能调压</a> </li>
+            <li><i class="nav_3"></i><a href="trend.html">居民用气</a> </li>
+            <li><i class="nav_4"></i><a href="chronic.html">展示二</a> </li>
             </ul>
     </div>
     <div class="header_center left" style="position:relative">
         
         <h2><strong>气体安全大数据追溯平台</strong></h2>
+				<input type="hidden" id="project_code" value="{{project_code}}">
+				<input type="hidden" id="function_code" value="{{function_code}}">
         <input type="hidden" id="map_data" value="{{map_data}}">
 				<input type="hidden" id="alarm_data" value="{{alarm_data}}">
 				<input type="hidden" id="useful_data" value="{{useful_data}}">
@@ -28,7 +30,7 @@
     </div>
     <div class="right nav text_right">
         <ul>
-            <li style="width: 10%"><i style="width: 10%" class="nav_1"></i><a href="index.html">登录</a> </li>
+            <li style="width: 10%"><i style="width: 10%" class="nav_1"></i><a id="login">登录</a> </li>
             <li style="width: 10%"><i style="width: 10%" class="nav_2"></i><a href="quota.html">帮助</a> </li>
             <li style="width: 10%"><i style="width: 10%" class="nav_3"></i><a href="trend.html">关于</a> </li>
 
@@ -175,10 +177,8 @@
     <!--</div>-->
 
 </div>
-<script src="{{ static_url('scripts/Plugin/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ static_url('scripts/Plugin/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ static_url('scripts/Plugin/echarts.min.js') }}"></script>
-    <!--<script src="../static/scripts/Plugin/bmap.min.js"></script>-->
-    <!--<script src="http://api.map.baidu.com/api?v=2.0&ak=LelFSt6BfykGf8m3PB5zr8LaXAG2cMg6"></script>-->
     <script src="{{ static_url('scripts/common.js') }}"></script>
     <script src="{{ static_url('scripts/charts1.js') }}"></script>
 		<script src="{{ static_url('scripts/charts2.js') }}"></script>
@@ -186,10 +186,11 @@
 		<script src="{{ static_url('scripts/charts4.js') }}"></script>
     <script src="{{ static_url('scripts/Plugin/laydate/laydate.js') }}"></script>
 
-
 		<script src="http://webapi.amap.com/maps?v=1.4.6&key=d924f737fb672e60e54bb3bede31c299"></script>
 		<script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
 		<script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="../static/scripts/gaode.js"></script>
+    <script src="{{ static_url('scripts/gaode.js') }}"></script>
+		<script src="{{ static_url('scripts/layer.js') }}"></script>
+    <script src="{{ static_url('scripts/index.js') }}"></script>
 </body>
 </html>

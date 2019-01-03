@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+	<link rel="stylesheet" type="text/css" href="{{ static_url('login/styles.css') }}" />
+</head>
+
+<body>
+
+<div id="carbonForm">
+	<h4 id="message" style="color:red"></h4>
+
+    <!--<form action="/login" method="post">-->
+
+        <div class="fieldContainer">
+          <!--{% raw xsrf_form_html() %}-->
+            <div class="formRow">
+                <div class="label">
+                    <label for="dwno">单位编号:</label>
+                </div>
+
+                <div class="field">
+                    <input type="text" name="dwno" id="dwno" />
+                </div>
+            </div>
+
+            <div class="formRow">
+                <div class="label">
+                    <label for="username">用户账号:</label>
+                </div>
+
+                <div class="field">
+                    <input type="text" name="username" id="username" />
+                </div>
+            </div>
+            <div class="formRow">
+                <div class="label">
+                    <label for="password">用户密码:</label>
+                </div>
+
+                <div class="field">
+                    <input type="password" name="password" id="password"/>
+                </div>
+            </div>
+
+
+        </div> <!-- Closing fieldContainer -->
+
+        <div class="signupButton">
+            <input type="submit" name="submit" id="submit" value="Signup" />
+        </div>
+    <!--</form>-->
+</div>
+
+<script type="text/javascript" src="{{ static_url('login/jquery-1.4.2.min.js') }}"></script>
+<!--<script type="text/javascript" src="{{ static_url('login/script.js') }}"></script>-->
+<script type="text/javascript" src="{{ static_url('login/login.js') }}"></script>
+
+</body>
+</html>
